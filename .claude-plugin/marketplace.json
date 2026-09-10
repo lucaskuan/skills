@@ -1,0 +1,17 @@
+{
+  "name": "lucaskuan",
+  "owner": {
+    "name": "Lucas Kuan",
+    "url": "https://github.com/lucaskuan"
+  },
+  "description": "Lucas Kuan's agent skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "lucaskuan-skills",
+      "source": "./",
+      "description": "Agent skills for EV charging platform ops and autonomous agent fleets.",
+      "category": "engineering",
+      "keywords": ["ops", "ev-charging", "agent-fleet", "ocpp"]
+    }
+  ]
+}

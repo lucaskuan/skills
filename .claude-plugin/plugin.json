@@ -1,0 +1,17 @@
+{
+  "name": "lucaskuan-skills",
+  "version": "0.1.0",
+  "description": "Lucas Kuan's personal dev skills: autonomous agent fleet orchestration, and the workflow and review habits worth making repeatable.",
+  "author": {
+    "name": "Lucas Kuan",
+    "url": "https://github.com/lucaskuan"
+  },
+  "homepage": "https://github.com/lucaskuan/skills",
+  "repository": "https://github.com/lucaskuan/skills",
+  "license": "MIT",
+  "keywords": ["skills", "agent-fleet", "workflow", "code-review", "automation"],
+  "skills": [
+    "./skills/fleet/fleet-manager",
+    "./skills/fleet/fleet-loop"
+  ]
+}
