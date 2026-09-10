@@ -20,6 +20,8 @@ You have several repos running as workers and you want one consolidated view of 
 
 **It says a worker is healthy but I do not believe it.** The fix is a better `verify` command in that repo's fleet config, not a manager that reads code. If the verify command does not earn trust, nothing downstream of it can.
 
+**A worker finished and its PR is green. Will the manager merge it?** No. A finished loop with a green PR appears in the merge queue section, which is the manager's output, not a task it completes. The merge is the one thing the human kept, and neither skill will take it.
+
 ## It's working if
 
 You get a short list of decisions and little else. Every worker's state is accounted for, including the silent ones, because silence is the alarm. If it hands you a summary of work you now have to go read, the proof-based judgement did not happen.

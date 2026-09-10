@@ -26,10 +26,19 @@ chmod +x ~/.claude/hooks/fleet_guard.py
 
 Verify it works:
 ```bash
-echo '{"tool_name":"Bash","tool_input":{"command":"git push"},"cwd":"/tmp"}' \
+echo '{"tool_name":"Bash","tool_input":{"command":"gh pr merge 1"},"cwd":"/tmp"}' \
   | FLEET_MODE=1 python3 ~/.claude/hooks/fleet_guard.py
-# -> should print a deny JSON. Without FLEET_MODE=1 -> no output (allowed).
+# -> prints a deny JSON. Without FLEET_MODE=1 -> no output (allowed).
 ```
+
+Then run the full suite, which asserts both directions of the wall:
+```bash
+python3 tests/guard_test.py
+# -> 12 allow + 16 deny cases, 0 failure(s)
+```
+
+Re-run it after any change to the hook. A safety wall with no test is a claim,
+not a wall.
 
 ## 2. Per-repo: create a FLEET.md
 
@@ -53,13 +62,12 @@ Also gitignore the runtime files (keep FLEET.md tracked):
 
 ## 3. Run it
 
-- Per repo: `/fleet-loop` — starts the worker (set `objective_source` in FLEET.md to a Linear issue first).
+- Per repo: `/fleet-loop <task>` — works one task to a PR and stops.
+- Per repo: `/fleet-loop` with no task — reads the standing objective from FLEET.md and self-selects work.
 - Command center: `/fleet-manager` — one consolidated pass. For unattended, wrap in `/loop 20m /fleet-manager` or a `/schedule`.
 
 ## How the safety layers compose
 
-- **Reversibility (hook, universal):** push/deploy/send/prod/money blocked in every fleet repo, mechanically. Cannot be bypassed by the model.
+- **Reversibility (hook, universal):** merge, force-push, base-branch push, deploy, send, prod writes and money are blocked in every fleet repo, mechanically, and cannot be talked past by the model. Pushing a task branch and opening a PR are allowed: both are revertible, and the PR is the artifact a human reviews.
 - **Verifiability (FLEET.md, per-repo):** `generation: free` only where `verify` is trustworthy; else `executor-only`.
 - **Operational (loop skill):** checkpoint per slice, heartbeat, stuck-detector (3 fails), budget ceiling.
-
-Full design: `~/Project/ideas/2026-07-29-agent-fleet-command-center-design.md`

@@ -18,7 +18,13 @@ A skill in `fleet/`, `workflow/`, or `review/`. Promoted skills ship in the plug
 The coordination surface between a fleet manager and its workers: each repo's `.fleet/STATUS.json` plus the issue tracker. Workers write, the manager reads. The manager never messages a running worker directly.
 
 **Slice**:
-One cycle's worth of work from a fleet worker. Verifiable and reversible, or it should not have been attempted.
+One cycle's worth of work from a fleet worker: one seam, one failing test, the minimal code that passes it, one commit. Verifiable and reversible, or it should not have been attempted.
+
+**Seam**:
+The public boundary a test observes behavior at, without reaching inside. Named in the plan before the first test, and repeated in the PR description so a reviewer can object to the choice.
+
+**Fix round**:
+One pass of reading CI and review feedback, fixing it, and pushing. Capped, because a loop that fixes forever is stuck without knowing it.
 
 **Proof**:
 The output of a repo's `verify` command. What the manager judges a worker by, in place of reading the worker's code.

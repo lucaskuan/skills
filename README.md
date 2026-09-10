@@ -29,7 +29,7 @@ Running repos as autonomous workers, and keeping a human in the loop for exactly
 | Skill | What it does |
 |---|---|
 | [`fleet-manager`](./skills/fleet/fleet-manager/SKILL.md) | The command center. Reads every worker's STATUS and tracker, judges health by proof rather than by reading the work, surfaces only decisions. Holds zero repo context on purpose. |
-| [`fleet-loop`](./skills/fleet/fleet-loop/SKILL.md) | Runs one repo as a worker. One verifiable reversible slice per cycle, hard-stop at anything irreversible, checkpoint, write STATUS. |
+| [`fleet-loop`](./skills/fleet/fleet-loop/SKILL.md) | Takes a task to a green PR unsupervised. Test-first in vertical slices, then push, monitor CI, fix review findings, and stop for a human to merge. Never merges. |
 
 ### Workflow
 
