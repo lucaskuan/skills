@@ -22,6 +22,8 @@ It is not a performance review. It shows where the tracker and the evidence disa
 
 **Will it message the team?** No. It is read-only everywhere. Follow-ups come back as drafts for the user to send.
 
+**Can another agent use the report?** Yes. Each run writes a Markdown and a JSON copy (schema `team-pulse/v1`) under `~/.config/team-pulse/history/`, with `latest.*` links and an `AGENTS.md` that gives any agent the schema and the rules. Link the skill into another agent's skills folder to let it run the pulse itself.
+
 **Where do the names go?** `~/.config/team-pulse/config.yml`, outside any repo. The skill bootstraps it from the tracker roster and asks the user to confirm before writing it.
 
 ## It's working if

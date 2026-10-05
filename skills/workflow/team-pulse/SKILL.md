@@ -104,18 +104,41 @@ to them), alerts with no owner, and anything that changed since the last run.
 End with at most three suggested follow-ups, each as a draft message the user could send —
 never sent by you.
 
-### 4. Optional history
+### 4. Save it for people and other agents
 
-If the user asks to keep it, write the report to
-`~/.config/team-pulse/history/<YYYY-MM-DD>.md` (local, never committed). On the next run,
-read the latest one and say what changed: flags cleared, new flags, flags that persisted.
-A flag that persists across runs is worth more than a fresh one.
+Every run writes two files to `~/.config/team-pulse/history/` (local, never committed), so
+the user can hand the report to another agent (Codex, a subagent) without re-running:
+
+- `<YYYY-MM-DD>.md`: the report above.
+- `<YYYY-MM-DD>.json`: the same content, structured:
+
+```
+{ "schema": "team-pulse/v1", generated_at, generated_by,
+  "window": { start, end, working_days, notes[] },
+  "people": [ { key, name, counts{}, shipped[], notes[],
+                "flags": [ { type, ref[], evidence, severity?, waiting_on? } ],
+                blind_spots[] } ],
+  "team": { waiting_on_user[], alerts_unowned[], pattern },
+  "followup_drafts": [ { to[], text } ],
+  "open_questions_for_user": [] }
+```
+
+`type` is the flag name in snake_case (`shipped_not_tracked`, `tracker_stale`, …);
+`severity` is `warn` by default, `info` for context. Then point `latest.md` and `latest.json`
+at the new files.
+
+Keep an `AGENTS.md` in `~/.config/team-pulse/` that tells any other agent the schema and the
+rules: read-only toward the team, never copy the data anywhere shared, verify a flag live
+before acting on it, and the user sends every follow-up. Create it on the first run if missing.
+
+On the next run, read `latest.json` first and say what changed: flags cleared, new flags,
+flags that persisted. A flag that persists across runs is worth more than a fresh one.
 
 ## Rules that keep this fair
 
 - **Counts are context, not output.** Never rank people by PRs, commits, or tickets closed.
   A person with one hard PR may have done more than one with ten.
 - **Say what you cannot see.** Every person block ends with the blind spots that apply.
-- **Quote, don't characterise.** "Standup says 'test oc-web' three days running, no PR or
+- **Quote, don't characterise.** "Standup says 'test the web app' three days running, no PR or
   ticket update" — not "seems stuck".
 - **Same rules for the user.** If the user is in the roster, report them the same way.
