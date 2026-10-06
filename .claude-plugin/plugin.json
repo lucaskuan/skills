@@ -12,6 +12,7 @@
   "keywords": ["skills", "agent-fleet", "workflow", "code-review", "automation"],
   "skills": [
     "./skills/fleet/fleet-manager",
-    "./skills/fleet/fleet-loop"
+    "./skills/fleet/fleet-loop",
+    "./skills/workflow/team-pulse"
   ]
 }

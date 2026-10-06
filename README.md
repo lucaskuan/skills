@@ -33,7 +33,11 @@ Running repos as autonomous workers, and keeping a human in the loop for exactly
 
 ### Workflow
 
-Empty. For daily process that is not tied to one repo.
+Daily process that is not tied to one repo.
+
+| Skill | What it does |
+|---|---|
+| [`team-pulse`](./skills/workflow/team-pulse/SKILL.md) | Per teammate, lines up the tracker against the evidence (standups, PRs, review requests, error alerts) and reports where they disagree. Read-only; reports evidence, never grades people. Names live in a local config, not the skill. |
 
 ### Review
 
